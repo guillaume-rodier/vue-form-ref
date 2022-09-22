@@ -25,6 +25,7 @@ export default {
     conditionDataUser() {
       if (
         this.user !== null &&
+        this.user !== undefined &&
         (this.user?.firstname !== null && this.user?.firstname !== undefined && this.user?.firstname !== "") &&
         (this.user?.lastname !== null && this.user?.lastname !== undefined && this.user?.lastname !== "")
       ) {
@@ -43,24 +44,19 @@ export default {
 
   methods: {
     submitData() {
-      let data = this.$refs.MyForm.checkForm();
-
-      if (data !== undefined) {
-        this.user = data;
-      } else {
-        this.user = null;
-      }
+      // It's do the ref
+      this.user = this.$refs.MyForm.checkForm();
     },
   },
 
   // You can see, when you click on submit button with good data, and change input value after, the data in "user" parent change too !
   watch: {
     "user.firstname"() {
-      console.log("user.firstname ici:", this.user.firstname)
+      console.log("user.firstname ici:", this.user?.firstname)
     },
 
     "user.lastname"() {
-      console.log("user.lastname ici:", this.user.lastname)
+      console.log("user.lastname ici:", this.user?.lastname)
     },
   }
 };
